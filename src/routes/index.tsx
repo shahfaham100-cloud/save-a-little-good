@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type SyntheticEvent } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
@@ -36,9 +36,17 @@ const NAV = [
   ["FAQ", "faq"],
 ] as const;
 
+// Standalone hosts may not have the local copy of Lovable-hosted media yet.
+const hostedLogoUrl = `https://save-a-little-good.lovable.app${logoAsset.url}`;
+
+function useHostedLogoFallback(event: SyntheticEvent<HTMLImageElement>) {
+  const image = event.currentTarget;
+  if (image.src !== hostedLogoUrl) image.src = hostedLogoUrl;
+}
+
 function Logo({ className = "" }: { className?: string }) {
   return (
-    <img src={logoAsset.url} alt="Save Me, Save You" className={`block h-auto w-auto ${className}`} />
+    <img src={logoAsset.url} onError={useHostedLogoFallback} alt="Save Me, Save You" className={`block h-auto w-auto ${className}`} />
   );
 }
 
@@ -179,7 +187,7 @@ function Index() {
       <div className="preloader fixed inset-0 z-[100] flex">
         {[0, 1, 2, 3].map((i) => <div key={i} className="pl-panel h-full flex-1 bg-ink" />)}
         <div className="pl-inner absolute inset-0 flex flex-col items-center justify-center gap-6 md:gap-8">
-          <img src={logoAsset.url} alt="" className="pl-logo h-28 w-28 md:h-36 md:w-36" />
+          <img src={logoAsset.url} onError={useHostedLogoFallback} alt="" className="pl-logo h-28 w-28 md:h-36 md:w-36" />
           <div className="overflow-hidden px-6 text-center font-display text-5xl md:text-8xl">
             {"Save Me,".split("").map((c, i) => <span key={i} className="pl-letter inline-block whitespace-pre">{c}</span>)}
             {" Save You".split("").map((c, i) => <span key={`m${i}`} className="pl-letter inline-block whitespace-pre text-gold italic">{c}</span>)}

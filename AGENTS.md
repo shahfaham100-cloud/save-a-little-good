@@ -9,4 +9,5 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-- Hostinger deploy: `npm run build:hostinger` (scripts/build-hostinger.mjs) builds with NITRO_PRESET=node-server into `hostinger-upload/` and pre-downloads Lovable-hosted `.asset.json` images into it — why: Hostinger runs plain Node and has no `/__l5e` asset host.
+- Hostinger deploy: `npm run build:hostinger` (scripts/build-hostinger.mjs) builds with NITRO_PRESET=node-server into `hostinger-upload/` and pre-downloads Lovable-hosted `.asset.json` images, failing if any download fails — why: Hostinger runs plain Node and must not receive an incomplete media bundle.
+- Logo images retry against the published Lovable origin when their local asset request fails — why: existing standalone deployments may lack the bundled logo file.
