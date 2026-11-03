@@ -302,19 +302,40 @@ function Index() {
       </section>
 
       {/* Who we help */}
-      <section id="help" className="border-t border-border py-32 md:py-44">
-        <div className="mx-auto max-w-[1400px] px-6 md:px-12">
-          <SectionLabel n="04" t="Who we help" />
-          <SplitHeading text="Hope, shared with the people who matter." />
-          <ul className="mt-20 border-t border-border">
-            {["Friends", "Families", "Elderly people", "Single parents", "People in need"].map((w, i) => (
-              <li key={w} data-hover className="reveal group relative flex items-center justify-between overflow-hidden border-b border-border py-8 md:py-10">
+      <section id="help" className="help-pin relative overflow-hidden border-t border-border">
+        <div className="flex min-h-screen flex-col justify-center py-24 lg:h-screen lg:py-0">
+          <div className="mx-auto mb-14 flex w-full max-w-[1400px] flex-col gap-6 px-6 md:px-12 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <SectionLabel n="04" t="Who we help" />
+              <SplitHeading text="Hope, shared with the people who matter." />
+            </div>
+            <p className="reveal hidden max-w-xs text-sm text-muted-foreground lg:block">Scroll to meet the people your membership quietly supports →</p>
+          </div>
+          <div className="help-track flex flex-col gap-6 px-6 md:px-12 lg:w-max lg:flex-row lg:pr-[20vw]">
+            {[
+              ["Friends", "A small gift that says “I’m thinking of you.”", "✦"],
+              ["Families", "Making the weekly shop stretch a little further.", "❖"],
+              ["Elderly people", "Comfort and dignity for those who raised us.", "✧"],
+              ["Single parents", "A helping hand for those carrying it all alone.", "◈"],
+              ["People in need", "Hope delivered, quietly and with respect.", "✺"],
+            ].map(([w, d, g], i) => (
+              <article key={w} data-hover
+                className="help-card group relative flex h-[60vh] min-h-[380px] shrink-0 flex-col justify-between overflow-hidden rounded-[2px] border border-border bg-card p-10 transition-[border-color,transform] duration-700 hover:-translate-y-3 hover:border-primary lg:w-[26rem]"
+                style={{ transform: `rotate(${i % 2 ? 1.5 : -1.5}deg)` }}>
                 <span className="absolute inset-0 origin-bottom scale-y-0 bg-gold transition-transform duration-700 ease-[cubic-bezier(.7,0,.2,1)] group-hover:scale-y-100" />
-                <span className="relative font-display text-5xl transition-all duration-500 group-hover:translate-x-6 group-hover:text-ink md:text-8xl">{w}</span>
-                <span className="relative text-xs tracking-[0.3em] text-muted-foreground transition-colors group-hover:text-ink">0{i + 1}</span>
-              </li>
+                <span className="pointer-events-none absolute -bottom-10 -right-4 font-display text-[16rem] leading-none text-foreground/[0.04] transition-colors duration-700 group-hover:text-ink/10">0{i + 1}</span>
+                <div className="relative flex items-center justify-between text-xs tracking-[0.3em] text-muted-foreground transition-colors duration-500 group-hover:text-ink">
+                  <span>0{i + 1} / 05</span>
+                  <span className="text-3xl text-primary transition-all duration-700 group-hover:rotate-180 group-hover:text-ink">{g}</span>
+                </div>
+                <div className="relative">
+                  <h3 className="font-display text-5xl leading-none transition-colors duration-500 group-hover:text-ink md:text-6xl">{w}</h3>
+                  <p className="mt-6 max-w-[16rem] text-sm leading-relaxed text-muted-foreground transition-colors duration-500 group-hover:text-ink/80">{d}</p>
+                  <span className="mt-8 inline-block h-px w-12 bg-primary transition-all duration-700 group-hover:w-full group-hover:bg-ink" />
+                </div>
+              </article>
             ))}
-          </ul>
+          </div>
         </div>
       </section>
 
