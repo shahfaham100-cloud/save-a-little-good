@@ -179,7 +179,7 @@ function Index() {
       <div className="preloader fixed inset-0 z-[100] flex">
         {[0, 1, 2, 3].map((i) => <div key={i} className="pl-panel h-full flex-1 bg-ink" />)}
         <div className="pl-inner absolute inset-0 flex flex-col items-center justify-center gap-6 md:gap-8">
-          <img src={logoAsset.url} alt="" className="pl-logo h-24 w-24 md:h-32 md:w-32" />
+          <img src={logoAsset.url} alt="" className="pl-logo h-28 w-28 md:h-36 md:w-36" />
           <div className="overflow-hidden px-6 text-center font-display text-5xl md:text-8xl">
             {"Save Me,".split("").map((c, i) => <span key={i} className="pl-letter inline-block whitespace-pre">{c}</span>)}
             {" Save You".split("").map((c, i) => <span key={`m${i}`} className="pl-letter inline-block whitespace-pre text-gold italic">{c}</span>)}
