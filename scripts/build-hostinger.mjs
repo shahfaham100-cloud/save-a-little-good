@@ -25,7 +25,8 @@ for (const f of readdirSync(assetsDir).filter((n) => n.endsWith(".asset.json")))
     writeFileSync(target, Buffer.from(await res.arrayBuffer()));
     console.log("Bundled image:", url);
   } catch (e) {
-    console.warn(`Warning: could not download ${url} (${e.message}).`);
+    rmSync(join(root, "public", "__l5e"), { recursive: true, force: true });
+    throw new Error(`Could not bundle ${url} (${e.message}). Check your internet connection and run npm run build:hostinger again.`);
   }
 }
 
