@@ -203,7 +203,7 @@ function Index() {
       {/* Nav */}
       <header className="fixed inset-x-0 top-0 z-50">
         <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5 md:px-12">
-          <button onClick={() => go("top")}><Logo className="h-14 md:h-16" /></button>
+          <button onClick={() => go("top")}><Logo className="h-16 md:h-20" /></button>
           <nav className="hidden gap-10 mix-blend-difference lg:flex">
             {NAV.map(([l, id]) => (
               <button key={id} onClick={() => go(id)} className="group relative text-xs uppercase tracking-[0.25em]">
