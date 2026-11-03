@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import heroImg from "@/assets/hero-gift.jpg";
 import janeImg from "@/assets/story-jane.jpg";
+import logoAsset from "@/assets/logo.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -37,9 +38,7 @@ const NAV = [
 
 function Logo({ className = "" }: { className?: string }) {
   return (
-    <span className={`font-display tracking-tight ${className}`}>
-      Save Me<span className="text-primary">,</span> <span className="text-gold italic">Save You</span>
-    </span>
+    <img src={logoAsset.url} alt="Save Me, Save You" className={`block h-auto w-auto ${className}`} />
   );
 }
 
