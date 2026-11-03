@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import heroImg from "@/assets/hero-gift.jpg";
 import janeImg from "@/assets/story-jane.jpg";
+import logoAsset from "@/assets/logo.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -37,9 +38,7 @@ const NAV = [
 
 function Logo({ className = "" }: { className?: string }) {
   return (
-    <span className={`font-display tracking-tight ${className}`}>
-      Save Me<span className="text-primary">,</span> <span className="text-gold italic">Save You</span>
-    </span>
+    <img src={logoAsset.url} alt="Save Me, Save You" className={`block h-auto w-auto ${className}`} />
   );
 }
 
@@ -54,7 +53,8 @@ function Index() {
     const ctx = gsap.context(() => {
       const counter = { v: 0 };
       const tl = gsap.timeline({ onComplete: () => setLoaded(true) });
-      tl.from(".pl-letter", { yPercent: 110, stagger: 0.06, duration: 0.9, ease: "power4.out" })
+      tl.from(".pl-logo", { scale: 0.6, opacity: 0, duration: 0.9, ease: "power3.out" })
+        .from(".pl-letter", { yPercent: 110, stagger: 0.06, duration: 0.9, ease: "power4.out" }, "-=0.45")
         .to(counter, {
           v: 100,
           duration: 1.6,
@@ -178,7 +178,8 @@ function Index() {
       {/* Preloader */}
       <div className="preloader fixed inset-0 z-[100] flex">
         {[0, 1, 2, 3].map((i) => <div key={i} className="pl-panel h-full flex-1 bg-ink" />)}
-        <div className="pl-inner absolute inset-0 flex flex-col items-center justify-center gap-8">
+        <div className="pl-inner absolute inset-0 flex flex-col items-center justify-center gap-6 md:gap-8">
+          <img src={logoAsset.url} alt="" className="pl-logo h-28 w-28 md:h-36 md:w-36" />
           <div className="overflow-hidden px-6 text-center font-display text-5xl md:text-8xl">
             {"Save Me,".split("").map((c, i) => <span key={i} className="pl-letter inline-block whitespace-pre">{c}</span>)}
             {" Save You".split("").map((c, i) => <span key={`m${i}`} className="pl-letter inline-block whitespace-pre text-gold italic">{c}</span>)}
@@ -200,10 +201,10 @@ function Index() {
       <div className="cursor pointer-events-none fixed left-0 top-0 z-[80] -ml-1.5 -mt-1.5 hidden h-3 w-3 rounded-full bg-primary mix-blend-difference transition-transform duration-300 md:block" />
 
       {/* Nav */}
-      <header className="fixed inset-x-0 top-0 z-50 mix-blend-difference">
-        <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-6 md:px-12">
-          <button onClick={() => go("top")} className="text-2xl"><Logo /></button>
-          <nav className="hidden gap-10 lg:flex">
+      <header className="fixed inset-x-0 top-0 z-50">
+        <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5 md:px-12">
+          <button onClick={() => go("top")}><Logo className="h-14 md:h-16" /></button>
+          <nav className="hidden gap-10 mix-blend-difference lg:flex">
             {NAV.map(([l, id]) => (
               <button key={id} onClick={() => go(id)} className="group relative text-xs uppercase tracking-[0.25em]">
                 {l}
@@ -211,8 +212,8 @@ function Index() {
               </button>
             ))}
           </nav>
-          <button onClick={() => go("plans")} className="hidden text-xs uppercase tracking-[0.25em] text-primary lg:block">Join now →</button>
-          <button onClick={() => setMenu(!menu)} className="text-xs uppercase tracking-[0.25em] lg:hidden">{menu ? "Close" : "Menu"}</button>
+          <button onClick={() => go("plans")} className="hidden text-xs uppercase tracking-[0.25em] text-primary mix-blend-difference lg:block">Join now →</button>
+          <button onClick={() => setMenu(!menu)} className="text-xs uppercase tracking-[0.25em] mix-blend-difference lg:hidden">{menu ? "Close" : "Menu"}</button>
         </div>
       </header>
       {menu && (
@@ -385,7 +386,7 @@ function Index() {
       <footer className="mx-auto max-w-[1400px] px-6 pb-10 pt-24 md:px-12">
         <div className="grid gap-12 md:grid-cols-4">
           <div className="md:col-span-2">
-            <Logo className="text-5xl md:text-7xl" />
+            <Logo className="h-24 md:h-28" />
             <p className="mt-6 max-w-sm text-sm text-muted-foreground">Save for yourself. Give hope to someone else.</p>
           </div>
           <div className="space-y-3 text-sm">
