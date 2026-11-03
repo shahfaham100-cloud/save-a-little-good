@@ -201,10 +201,10 @@ function Index() {
       <div className="cursor pointer-events-none fixed left-0 top-0 z-[80] -ml-1.5 -mt-1.5 hidden h-3 w-3 rounded-full bg-primary mix-blend-difference transition-transform duration-300 md:block" />
 
       {/* Nav */}
-      <header className="fixed inset-x-0 top-0 z-50 mix-blend-difference">
-        <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-6 md:px-12">
-          <button onClick={() => go("top")} className="text-2xl"><Logo /></button>
-          <nav className="hidden gap-10 lg:flex">
+      <header className="fixed inset-x-0 top-0 z-50">
+        <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5 md:px-12">
+          <button onClick={() => go("top")}><Logo className="h-14 md:h-16" /></button>
+          <nav className="hidden gap-10 mix-blend-difference lg:flex">
             {NAV.map(([l, id]) => (
               <button key={id} onClick={() => go(id)} className="group relative text-xs uppercase tracking-[0.25em]">
                 {l}
@@ -212,8 +212,8 @@ function Index() {
               </button>
             ))}
           </nav>
-          <button onClick={() => go("plans")} className="hidden text-xs uppercase tracking-[0.25em] text-primary lg:block">Join now →</button>
-          <button onClick={() => setMenu(!menu)} className="text-xs uppercase tracking-[0.25em] lg:hidden">{menu ? "Close" : "Menu"}</button>
+          <button onClick={() => go("plans")} className="hidden text-xs uppercase tracking-[0.25em] text-primary mix-blend-difference lg:block">Join now →</button>
+          <button onClick={() => setMenu(!menu)} className="text-xs uppercase tracking-[0.25em] mix-blend-difference lg:hidden">{menu ? "Close" : "Menu"}</button>
         </div>
       </header>
       {menu && (
@@ -386,7 +386,7 @@ function Index() {
       <footer className="mx-auto max-w-[1400px] px-6 pb-10 pt-24 md:px-12">
         <div className="grid gap-12 md:grid-cols-4">
           <div className="md:col-span-2">
-            <Logo className="text-5xl md:text-7xl" />
+            <Logo className="h-24 md:h-28" />
             <p className="mt-6 max-w-sm text-sm text-muted-foreground">Save for yourself. Give hope to someone else.</p>
           </div>
           <div className="space-y-3 text-sm">
