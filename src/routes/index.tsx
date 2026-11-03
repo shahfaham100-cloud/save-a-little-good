@@ -9,13 +9,13 @@ import janeImg from "@/assets/story-jane.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "SaveMe — Save for yourself. Give hope to someone else." },
+      { title: "Save Me, Save You — Save for yourself. Give hope to someone else." },
       {
         name: "description",
         content:
-          "SaveMe memberships unlock everyday savings and cashback, while helping families, elderly people and single parents in need.",
+          "Save Me, Save You memberships unlock everyday savings and cashback, while helping families, elderly people and single parents in need.",
       },
-      { property: "og:title", content: "SaveMe — Save more. Give more." },
+      { property: "og:title", content: "Save Me, Save You — Save more. Give more." },
       {
         property: "og:description",
         content: "Premium memberships that turn your everyday savings into hope for someone else.",
@@ -38,7 +38,7 @@ const NAV = [
 function Logo({ className = "" }: { className?: string }) {
   return (
     <span className={`font-display tracking-tight ${className}`}>
-      Save<span className="text-gold italic">Me</span>
+      Save Me<span className="text-primary">,</span> <span className="text-gold italic">Save You</span>
     </span>
   );
 }
@@ -109,6 +109,16 @@ function Index() {
           scrollTrigger: { trigger: el, start: "top 80%" },
         });
       });
+      const mm = gsap.matchMedia();
+      mm.add("(min-width: 1024px)", () => {
+        const track = document.querySelector<HTMLElement>(".help-track");
+        if (!track) return;
+        const dist = () => track.scrollWidth - window.innerWidth;
+        gsap.to(track, {
+          x: () => -dist(), ease: "none",
+          scrollTrigger: { trigger: ".help-pin", start: "top top", end: () => `+=${dist()}`, pin: true, scrub: 1, invalidateOnRefresh: true },
+        });
+      });
       gsap.to(".marquee-track", { xPercent: -50, duration: 30, ease: "none", repeat: -1 });
       gsap.utils.toArray<HTMLElement>(".parallax").forEach((el) => {
         gsap.to(el, { yPercent: -15, ease: "none", scrollTrigger: { trigger: el, scrub: true } });
@@ -169,9 +179,9 @@ function Index() {
       <div className="preloader fixed inset-0 z-[100] flex">
         {[0, 1, 2, 3].map((i) => <div key={i} className="pl-panel h-full flex-1 bg-ink" />)}
         <div className="pl-inner absolute inset-0 flex flex-col items-center justify-center gap-8">
-          <div className="overflow-hidden font-display text-7xl md:text-9xl">
-            {"Save".split("").map((c, i) => <span key={i} className="pl-letter inline-block">{c}</span>)}
-            {"Me".split("").map((c, i) => <span key={`m${i}`} className="pl-letter inline-block text-gold italic">{c}</span>)}
+          <div className="overflow-hidden px-6 text-center font-display text-5xl md:text-8xl">
+            {"Save Me,".split("").map((c, i) => <span key={i} className="pl-letter inline-block whitespace-pre">{c}</span>)}
+            {" Save You".split("").map((c, i) => <span key={`m${i}`} className="pl-letter inline-block whitespace-pre text-gold italic">{c}</span>)}
           </div>
           <div className="h-px w-56 bg-border">
             <div className="pl-bar h-full origin-left scale-x-0 bg-gold" />
@@ -192,7 +202,7 @@ function Index() {
       {/* Nav */}
       <header className="fixed inset-x-0 top-0 z-50 mix-blend-difference">
         <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-6 md:px-12">
-          <button onClick={() => go("top")} className="text-3xl"><Logo /></button>
+          <button onClick={() => go("top")} className="text-2xl"><Logo /></button>
           <nav className="hidden gap-10 lg:flex">
             {NAV.map(([l, id]) => (
               <button key={id} onClick={() => go(id)} className="group relative text-xs uppercase tracking-[0.25em]">
@@ -214,13 +224,13 @@ function Index() {
       )}
 
       {/* Hero */}
-      <section id="top" className="hero relative flex min-h-screen items-end overflow-hidden">
+      <section id="top" className="hero relative flex min-h-[100svh] items-center overflow-hidden">
         <img src={heroImg} alt="A black gift box with gold ribbon passed between two hands" width={1600} height={1008}
           className="hero-img absolute inset-0 h-[120%] w-full object-cover opacity-70" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background/20" />
-        <div className="relative mx-auto w-full max-w-[1400px] px-6 pb-20 md:px-12 md:pb-28">
+        <div className="relative mx-auto w-full max-w-[1400px] px-6 pb-16 pt-36 md:px-12 md:pb-20 md:pt-44">
           <p className="hero-fade mb-8 text-xs uppercase tracking-[0.4em] text-primary">Membership · Savings · Giving</p>
-          <h1 className="font-display text-[13vw] font-light leading-[0.9] md:text-[8.5vw]">
+          <h1 className="font-display text-[min(13vw,11vh)] font-light leading-[0.92] md:text-[min(8.5vw,13vh)]">
             <span className="hero-line block overflow-hidden"><span className="block">Save for yourself.</span></span>
             <span className="hero-line block overflow-hidden"><span className="block italic text-gold">Give hope</span></span>
             <span className="hero-line block overflow-hidden"><span className="block">to someone else.</span></span>
@@ -287,7 +297,7 @@ function Index() {
       {/* Story */}
       <section id="story" className="mx-auto grid max-w-[1400px] gap-16 px-6 py-32 md:px-12 md:py-44 lg:grid-cols-2 lg:items-center">
         <div className="clip overflow-hidden">
-          <img src={janeImg} alt="Jane, founder of SaveMe" width={1008} height={1264} loading="lazy"
+          <img src={janeImg} alt="Jane, founder of Save Me, Save You" width={1008} height={1264} loading="lazy"
             className="parallax h-[115%] w-full object-cover transition-transform duration-[1.5s] hover:scale-105" />
         </div>
         <div>
@@ -295,26 +305,47 @@ function Index() {
           <SplitHeading text="It started with one simple question." />
           <div className="reveal mt-10 space-y-6 text-lg leading-relaxed text-muted-foreground">
             <p>“I watched people around me — friends, neighbours, single parents — stretch every dollar. I wondered: what if saving money could also help someone else?”</p>
-            <p>That question became SaveMe. A membership where every saving you make helps create hope for someone who needs it.</p>
+            <p>That question became Save Me, Save You. A membership where every saving you make helps create hope for someone who needs it.</p>
           </div>
           <p className="reveal mt-10 font-display text-3xl italic text-gold">— Jane, Founder</p>
         </div>
       </section>
 
       {/* Who we help */}
-      <section id="help" className="border-t border-border py-32 md:py-44">
-        <div className="mx-auto max-w-[1400px] px-6 md:px-12">
-          <SectionLabel n="04" t="Who we help" />
-          <SplitHeading text="Hope, shared with the people who matter." />
-          <ul className="mt-20 border-t border-border">
-            {["Friends", "Families", "Elderly people", "Single parents", "People in need"].map((w, i) => (
-              <li key={w} data-hover className="reveal group relative flex items-center justify-between overflow-hidden border-b border-border py-8 md:py-10">
+      <section id="help" className="help-pin relative overflow-hidden border-t border-border">
+        <div className="flex min-h-screen flex-col justify-center py-24 lg:h-screen lg:pb-8 lg:pt-28">
+          <div className="mx-auto mb-14 flex w-full max-w-[1400px] flex-col gap-6 px-6 md:px-12 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <SectionLabel n="04" t="Who we help" />
+              <SplitHeading text="Hope, shared with the people who matter." />
+            </div>
+            <p className="reveal hidden max-w-xs text-sm text-muted-foreground lg:block">Scroll to meet the people your membership quietly supports →</p>
+          </div>
+          <div className="help-track flex flex-col gap-6 px-6 md:px-12 lg:w-max lg:flex-row lg:pr-[20vw]">
+            {[
+              ["Friends", "A small gift that says “I’m thinking of you.”", "✦"],
+              ["Families", "Making the weekly shop stretch a little further.", "❖"],
+              ["Elderly people", "Comfort and dignity for those who raised us.", "✧"],
+              ["Single parents", "A helping hand for those carrying it all alone.", "◈"],
+              ["People in need", "Hope delivered, quietly and with respect.", "✺"],
+            ].map(([w, d, g], i) => (
+              <article key={w} data-hover
+                className="help-card group relative flex h-[52vh] min-h-[340px] shrink-0 flex-col justify-between overflow-hidden rounded-[2px] border border-border bg-card p-10 transition-[border-color,transform] duration-700 hover:-translate-y-3 hover:border-primary lg:w-[26rem]"
+                style={{ transform: `rotate(${i % 2 ? 1.5 : -1.5}deg)` }}>
                 <span className="absolute inset-0 origin-bottom scale-y-0 bg-gold transition-transform duration-700 ease-[cubic-bezier(.7,0,.2,1)] group-hover:scale-y-100" />
-                <span className="relative font-display text-5xl transition-all duration-500 group-hover:translate-x-6 group-hover:text-ink md:text-8xl">{w}</span>
-                <span className="relative text-xs tracking-[0.3em] text-muted-foreground transition-colors group-hover:text-ink">0{i + 1}</span>
-              </li>
+                <span className="pointer-events-none absolute -bottom-10 -right-4 font-display text-[16rem] leading-none text-foreground/[0.04] transition-colors duration-700 group-hover:text-ink/10">0{i + 1}</span>
+                <div className="relative flex items-center justify-between text-xs tracking-[0.3em] text-muted-foreground transition-colors duration-500 group-hover:text-ink">
+                  <span>0{i + 1} / 05</span>
+                  <span className="text-3xl text-primary transition-all duration-700 group-hover:rotate-180 group-hover:text-ink">{g}</span>
+                </div>
+                <div className="relative">
+                  <h3 className="font-display text-5xl leading-none transition-colors duration-500 group-hover:text-ink md:text-6xl">{w}</h3>
+                  <p className="mt-6 max-w-[16rem] text-sm leading-relaxed text-muted-foreground transition-colors duration-500 group-hover:text-ink/80">{d}</p>
+                  <span className="mt-8 inline-block h-px w-12 bg-primary transition-all duration-700 group-hover:w-full group-hover:bg-ink" />
+                </div>
+              </article>
             ))}
-          </ul>
+          </div>
         </div>
       </section>
 
@@ -354,7 +385,7 @@ function Index() {
       <footer className="mx-auto max-w-[1400px] px-6 pb-10 pt-24 md:px-12">
         <div className="grid gap-12 md:grid-cols-4">
           <div className="md:col-span-2">
-            <Logo className="text-6xl md:text-8xl" />
+            <Logo className="text-5xl md:text-7xl" />
             <p className="mt-6 max-w-sm text-sm text-muted-foreground">Save for yourself. Give hope to someone else.</p>
           </div>
           <div className="space-y-3 text-sm">
@@ -369,7 +400,7 @@ function Index() {
           </div>
         </div>
         <div className="mt-20 flex flex-col justify-between gap-4 border-t border-border pt-8 text-xs text-muted-foreground md:flex-row">
-          <span>© {new Date().getFullYear()} SaveMe. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} Save Me, Save You. All rights reserved.</span>
           <button onClick={() => go("top")} className="uppercase tracking-[0.3em] hover:text-primary">Back to top ↑</button>
         </div>
       </footer>
