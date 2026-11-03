@@ -313,7 +313,7 @@ function Index() {
 
       {/* Who we help */}
       <section id="help" className="help-pin relative overflow-hidden border-t border-border">
-        <div className="flex min-h-screen flex-col justify-center py-24 lg:h-screen lg:py-0">
+        <div className="flex min-h-screen flex-col justify-center py-24 lg:h-screen lg:pb-8 lg:pt-28">
           <div className="mx-auto mb-14 flex w-full max-w-[1400px] flex-col gap-6 px-6 md:px-12 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <SectionLabel n="04" t="Who we help" />
@@ -330,7 +330,7 @@ function Index() {
               ["People in need", "Hope delivered, quietly and with respect.", "✺"],
             ].map(([w, d, g], i) => (
               <article key={w} data-hover
-                className="help-card group relative flex h-[60vh] min-h-[380px] shrink-0 flex-col justify-between overflow-hidden rounded-[2px] border border-border bg-card p-10 transition-[border-color,transform] duration-700 hover:-translate-y-3 hover:border-primary lg:w-[26rem]"
+                className="help-card group relative flex h-[52vh] min-h-[340px] shrink-0 flex-col justify-between overflow-hidden rounded-[2px] border border-border bg-card p-10 transition-[border-color,transform] duration-700 hover:-translate-y-3 hover:border-primary lg:w-[26rem]"
                 style={{ transform: `rotate(${i % 2 ? 1.5 : -1.5}deg)` }}>
                 <span className="absolute inset-0 origin-bottom scale-y-0 bg-gold transition-transform duration-700 ease-[cubic-bezier(.7,0,.2,1)] group-hover:scale-y-100" />
                 <span className="pointer-events-none absolute -bottom-10 -right-4 font-display text-[16rem] leading-none text-foreground/[0.04] transition-colors duration-700 group-hover:text-ink/10">0{i + 1}</span>
