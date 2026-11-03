@@ -11,27 +11,13 @@ const uploadDir = join(root, "hostinger-upload");
 rmSync(outDir, { recursive: true, force: true });
 rmSync(uploadDir, { recursive: true, force: true });
 
-console.log("Building for Node.js (Hostinger)...");
-execSync("npx vite build", {
-  stdio: "inherit",
-  env: { ...process.env, NITRO_PRESET: "node-server", NODE_ENV: "production" },
-});
-
-const entry = join(outDir, "server", "index.mjs");
-if (!existsSync(entry)) {
-  console.error("Build failed: .output/server/index.mjs not found.");
-  process.exit(1);
-}
-
-cpSync(outDir, uploadDir, { recursive: true });
-
 // Lovable-hosted images (src/assets/*.asset.json) are served from /__l5e/... on Lovable.
 // Download them into public/ so they also work on Hostinger.
 const SOURCE_SITE = "https://save-a-little-good.lovable.app";
 const assetsDir = join(root, "src", "assets");
 for (const f of readdirSync(assetsDir).filter((n) => n.endsWith(".asset.json"))) {
   const { url } = JSON.parse(readFileSync(join(assetsDir, f), "utf8"));
-  const target = join(uploadDir, "public", url);
+  const target = join(root, "public", url);
   try {
     const res = await fetch(SOURCE_SITE + url);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -42,6 +28,23 @@ for (const f of readdirSync(assetsDir).filter((n) => n.endsWith(".asset.json")))
     console.warn(`Warning: could not download ${url} (${e.message}).`);
   }
 }
+
+
+console.log("Building for Node.js (Hostinger)...");
+execSync("npx vite build", {
+  stdio: "inherit",
+  env: { ...process.env, NITRO_PRESET: "node-server", NODE_ENV: "production" },
+});
+
+const entry = join(outDir, "server", "index.mjs");
+if (!existsSync(entry)) {
+  rmSync(join(root, "public", "__l5e"), { recursive: true, force: true });
+  console.error("Build failed: .output/server/index.mjs not found.");
+  process.exit(1);
+}
+
+cpSync(outDir, uploadDir, { recursive: true });
+rmSync(join(root, "public", "__l5e"), { recursive: true, force: true });
 
 const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
 writeFileSync(
