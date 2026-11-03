@@ -330,7 +330,7 @@ function Index() {
             ["Can I gift a membership?", "Yes. You can gift a membership to a friend, family member or someone in need — we'll handle the rest with a beautiful welcome."],
             ["How much can I save?", "Savings depend on how you shop, but members typically recover their membership cost within the first few purchases."],
             ["Can I cancel anytime?", "Absolutely. Cancel anytime from your account — no lock-in contracts, no hidden fees."],
-          ].map(([q, a]) => <Faq key={q} q={q} a={a} />)}
+          ].map(([q, a]) => <Faq key={q} q={q ?? ""} a={a ?? ""} />)}
         </div>
       </section>
 
